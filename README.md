@@ -50,19 +50,55 @@
     User user = new User(appId, appAccount);
 ```
 
-## 5) 登陆
+## 5) 请求到Token并返回
+
+``` java 
+    user.registerTokenFetcher(MIMCTokenFetcher  fetcher); 
+    interface MIMCTokenFetcher {
+        /**
+         * @return: 小米TokenService服务下发的原始数据
+         * @note: fetchToken()访问APP应用方自行实现的AppProxyService服务，该服务实现以下功能：
+                    1. 存储appId/appKey/appSec（不应当存储在APP客户端）
+                    2. 用户在APP系统内的合法鉴权
+                    3. 调用小米TokenService服务，并将小米TokenService服务返回结果通过fetchToken()原样返回
+         **/
+        public String fetchToken();
+    }
+```
+
+## 6) 获得连接状态
+
+``` java 
+    user.registerOnlineStatusHandler(MIMCOnlineStatusHandler handler);
+    interface MIMCOnlineStatusHandler {
+        public void statusChange();
+    }
+```
+
+## 7) 接收消息
+
+``` java 
+    user.registerMessageHandler(MIMCMessageHandler handler);
+    interface MIMCMessageHandler {
+        public void handleMessage(List<MIMCMessage> packets);         // MIMCMessage是面向用户的结构体
+        public void handleGroupMessage(List<MIMCGroupMessage> packets);         // MIMCGroupMessage是面向用户的结构体
+        public void handleServerAck(String packetId);
+    }
+```
+
+## 8) 登陆
 
 ``` java 
     user.login();
 ```
 
-## 6) 发送消息
+## 9) 发送消息
 
 ``` java 
     user.sendMessage(String appAccount, byte[]);
 ```
 
-## 7) 注销
+## 10) 注销
 
 ``` java 
     user.logout();
