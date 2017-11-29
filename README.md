@@ -8,9 +8,14 @@
  步骤如下：登陆小米开放平台网页 -> ”管理控制台” -> ”小米应用商店” -> ”创建应用” ->  填入应用名和包名 -> ”创建” -> 记下看到的AppId/AppKey/AppSec 。
 
 ## 2) 在应用的AndroidManifest.xml里添加以下配置：
+//此处MIPUSH_RECEIVE为之前设置，以后会更改
 
 ``` xml
-    //todo
+    <permission
+        android:name="com.xiaomi.mimcdemo.permission.MIPUSH_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.xiaomi.mimcdemo.permission.MIPUSH_RECEIVE" />
 ```
 
 ## 3) 获取Token
@@ -31,9 +36,9 @@
   
   b) 访问TokenService，获取Token并下发给APP；
   
-+ !!此为Demo APP所以appId/appKey/appSec存放于APP本地!!
++ 获取方式如下：
 ```
-    url “https://mimc.chat.xiaomi.net/api/account/token”
+    curl “https://mimc.chat.xiaomi.net/api/account/token”
     -XPOST -d '{"appId":$appId,"appKey":$appKey,"appSecret":$appSec,"appAccount":$appAccount}' 
     -H "Content-Type: application/json"
 ```
