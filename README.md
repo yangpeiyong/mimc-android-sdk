@@ -77,12 +77,11 @@
 ## 7) 接收消息
 
 ``` java 
-    //每条消息都有packetId，按发送的时间顺序递增
     user.registerMessageHandler(MIMCMessageHandler handler);
     interface MIMCMessageHandler {
         public void handleMessage(List<MIMCMessage> packets);        
         public void handleGroupMessage(List<MIMCGroupMessage> packets); 
-        //这里返回的packetId为服务器端收到消息后返回此消息的packetId 
+        //参数packetId与9）对应
         public void handleServerAck(String packetId);
     }
 ```
@@ -98,7 +97,7 @@
 ``` java 
     //返回值为packetId，表示客户端此次发送的消息的packetId
     //用户每次发送消息后，会收到服务器端返回的packetId，保证发送的消息成功到达服务器端   
-    user.sendMessage(String appAccount, byte[]); 
+    String packetId = user.sendMessage(String appAccount, byte[]); 
 ```
 
 ## 10) 注销
