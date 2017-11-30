@@ -81,7 +81,7 @@
     interface MIMCMessageHandler {
         public void handleMessage(List<MIMCMessage> packets);        
         public void handleGroupMessage(List<MIMCGroupMessage> packets); 
-        //参数packetId与9）对应
+        //参数packetId与9)对应
         public void handleServerAck(String packetId);
     }
 ```
