@@ -15,10 +15,10 @@
 
     <!-- receive the mipush messages. the permission is expected to be used only by the app itself. -->
     <permission
-        android:name="com.xiaomi.mimcdemo.permission.MIPUSH_RECEIVE"
+        android:name="com.xiaomi.mimcdemo.permission.MIMC_RECEIVE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.xiaomi.mimcdemo.permission.MIPUSH_RECEIVE" />
+    <uses-permission android:name="com.xiaomi.mimcdemo.permission.MIMC_RECEIVE" />
 
     <application
         android:name="com.xiaomi.mimcdemo.DemoApplication"

@@ -11,10 +11,10 @@
 
 ``` xml
     <permission
-        android:name="com.xiaomi.mimcdemo.permission.MIPUSH_RECEIVE"
+        android:name="com.xiaomi.mimcdemo.permission.MIMC_RECEIVE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.xiaomi.mimcdemo.permission.MIPUSH_RECEIVE" />
+    <uses-permission android:name="com.xiaomi.mimcdemo.permission.MIMC_RECEIVE" />
 ```
 
 ## 3) 获取Token
