@@ -8,7 +8,6 @@
  步骤如下：登陆小米开放平台网页 -> ”管理控制台” -> ”小米应用商店” -> ”创建应用” ->  填入应用名和包名 -> ”创建” -> 记下看到的AppId/AppKey/AppSec 。
 
 ## 2) 在应用的AndroidManifest.xml里添加以下配置：
-//此处MIPUSH_RECEIVE为之前设置，以后会更改
 
 ``` xml
     <permission
@@ -36,7 +35,7 @@
   
   b) 访问TokenService，获取Token并下发给APP；
   
-+ 获取方式如下：
+#### 访问TokenService获取Token方式如下：
 ```
     curl “https://mimc.chat.xiaomi.net/api/account/token”
     -XPOST -d '{"appId":$appId,"appKey":$appKey,"appSecret":$appSec,"appAccount":$appAccount}' 
@@ -60,7 +59,7 @@
          * @note: fetchToken()访问APP应用方自行实现的AppProxyService服务，该服务实现以下功能：
                     1. 存储appId/appKey/appSec（不应当存储在APP客户端）
                     2. 用户在APP系统内的合法鉴权
-                    3. 调用小米TokenService服务，并将小米TokenService服务返回结果通过fetchToken()原样返回
+                    3. 调用小米TokenService服务，并将小米TokenService服务返回结果通过fetchToken()原样返回，参考3）获取Token
          **/
         public String fetchToken();
     }
@@ -78,10 +77,12 @@
 ## 7) 接收消息
 
 ``` java 
+    //每条消息都有packetId，按发送的时间顺序递增
     user.registerMessageHandler(MIMCMessageHandler handler);
     interface MIMCMessageHandler {
-        public void handleMessage(List<MIMCMessage> packets);         // MIMCMessage是面向用户的结构体
-        public void handleGroupMessage(List<MIMCGroupMessage> packets);         // MIMCGroupMessage是面向用户的结构体
+        public void handleMessage(List<MIMCMessage> packets);        
+        public void handleGroupMessage(List<MIMCGroupMessage> packets); 
+        //这里返回的packetId为服务器端收到消息后返回此消息的packetId 
         public void handleServerAck(String packetId);
     }
 ```
@@ -95,7 +96,9 @@
 ## 9) 发送消息
 
 ``` java 
-    user.sendMessage(String appAccount, byte[]);
+    //返回值为packetId，表示客户端此次发送的消息的packetId
+    //用户每次发送消息后，会收到服务器端返回的packetId，保证发送的消息成功到达服务器端   
+    user.sendMessage(String appAccount, byte[]); 
 ```
 
 ## 10) 注销
