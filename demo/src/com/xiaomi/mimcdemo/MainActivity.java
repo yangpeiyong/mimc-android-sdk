@@ -63,6 +63,7 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
         mAdapter = new ChatAdapter(this, mdatas);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
+        onChannelStatusChanged(UserManager.getInstance().getStatus());
     }
 
     public void onChannelStatusChanged(int status) {
