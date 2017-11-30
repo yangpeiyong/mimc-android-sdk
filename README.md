@@ -13,7 +13,6 @@
     <permission
         android:name="com.xiaomi.mimcdemo.permission.MIMC_RECEIVE"
         android:protectionLevel="signature" />
-
     <uses-permission android:name="com.xiaomi.mimcdemo.permission.MIMC_RECEIVE" />
 ```
 
