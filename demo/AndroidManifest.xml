@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="com.xiaomi.xmsf.permission.LOG_PROVIDER" />
-    <!-- receive the mipush messages. the permission is expected to be used only by the app itself. -->
+    <!-- receive the mimc messages. the permission is expected to be used only by the app itself. -->
     <permission
         android:name="com.xiaomi.mimcdemo.permission.MIMC_RECEIVE"
         android:protectionLevel="signature" />
@@ -33,6 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--android:windowSoftInputMode="adjustPan"-->
 
         <service
             android:name="com.xiaomi.push.service.XMPushService"
@@ -61,12 +62,10 @@
                 <action android:name="com.xiaomi.push.channel_opened" />
                 <action android:name="com.xiaomi.push.channel_closed" />
                 <action android:name="com.xiaomi.push.new_msg" />
-                <action android:name="com.xiaomi.push.new_iq" />
-                <action android:name="com.xiaomi.push.new_pres" />
                 <action android:name="com.xiaomi.push.kicked" />
             </intent-filter>
         </receiver>
-
+        
         <receiver android:name="com.xiaomi.push.service.receivers.PingReceiver">
             <intent-filter>
                 <action android:name="com.xiaomi.push.PING_TIMER" />
