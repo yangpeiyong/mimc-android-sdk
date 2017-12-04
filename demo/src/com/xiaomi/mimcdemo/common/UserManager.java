@@ -47,7 +47,7 @@ public class UserManager {
 
     public interface OnSendMsgListener {
         void onSent(MIMCMessage message);
-        void onSentStatus(int status);
+        void onStatusChanged(int status);
     }
 
     public static UserManager getInstance() {
@@ -89,7 +89,7 @@ public class UserManager {
         @Override
         public void onStatusChanged(int status, int code, String msg) {
             mStatus = status;
-            onSendMsgListener.onSentStatus(status);
+            onSendMsgListener.onStatusChanged(status);
         }
     }
 
@@ -135,3 +135,4 @@ public class UserManager {
         }
     }
 }
+

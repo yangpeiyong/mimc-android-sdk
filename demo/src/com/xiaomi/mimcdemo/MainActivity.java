@@ -6,13 +6,16 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.xiaomi.channel.commonutils.logger.MyLog;
 import com.xiaomi.mimcdemo.common.ChatAdapter;
 import com.xiaomi.mimcdemo.common.UserManager;
 import com.xiaomi.push.mimc.MIMCMessage;
 import com.xiaomi.push.mimc.MimcConstant;
+import com.xiaomi.push.mimc.MimcException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,6 +82,18 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        if (!TextUtils.isEmpty(UserManager.getInstance().getAccount())){
+            try {
+                UserManager.getInstance().getUser(UserManager.getInstance().getAccount()).pull();
+            } catch (MimcException e) {
+                MyLog.w("pull exception :"+e.getMessage());
+            }
+        }
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
     }
@@ -95,7 +110,7 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     }
 
     @Override
-    public void onSentStatus(final int status) {
+    public void onStatusChanged(final int status) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
