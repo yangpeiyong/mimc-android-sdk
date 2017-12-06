@@ -114,6 +114,12 @@ Topic API：
 $appId					表示appId
 $topicId				表示群ID
 $topicName				表示创建群的时候所指定的群名称
+$topicId1				表示查询所属群信息时用户所加入群的群ID
+$topicId2				表示查询所属群信息时用户所加入群的群ID
+$topicName1				表示查询所属群信息时用户所加入群的群名称
+$topicName2				表示查询所属群信息时用户所加入群的群名称
+$topicBulletin1				表示查询所属群信息时用户所加入群的群公告
+$topicBulletin2				表示查询所属群信息时用户所加入群的群公告
 $newBulletin				表示更新群时设置的新群公告
 $newTopicName				表示更新群时设置的新群名称
 $ownerUuid				表示群主uuid
@@ -152,7 +158,7 @@ curl "https://mimc.chat.xiaomi.net/api/topic/$appId" -XPOST -d '{"topicName":$to
 		"topicInfo":{
 			"topicId":$topicId,
 			"ownerUuid":$ownerUuid,
-			"name":$topicName,
+			"topicName":$topicName,
 			"bulletin":""
 		},
 		"members":[
@@ -182,7 +188,7 @@ curl "https://mimc.chat.xiaomi.net/api/topic/$appId/$topicId" -H "Content-Type: 
 		"topicInfo":{
 			"topicId":$topicId,
 			"ownerUuid":$ownerUuid,
-			"name":$topicName,
+			"topicName":$topicName,
 			"bulletin":""
 		},
 		"members":[
@@ -195,7 +201,38 @@ curl "https://mimc.chat.xiaomi.net/api/topic/$appId/$topicId" -H "Content-Type: 
 }
 ```
 
-## 3) 邀请人进群(joinTopic):
+## 3) 查询所属群信息(queryTopic)：
+
+#### 如下为$userAccount1查询加入的所有群信息
+
++ HTTPS请求
+```
+curl "https://mimc.chat.xiaomi.net/api/topic/$appId/account" -H "Content-Type: application/json" -H "token:$userToken1"
+```
+
++ JSON结果
+```
+{
+	"code":200,
+	"message":"success",
+	"data":[
+		{
+			"topicId":$topicId1,
+			"ownerUuid":$ownerUuid,
+			"topicName":$topicName1,
+			"bulletin":$topicBulletin1
+		},
+		{
+			"topicId":$topicId2,
+			"ownerUuid":$ownerUuid,
+			"topicName":$topicName2,
+			"bulletin":$topicBulletin2
+		}
+	]
+}
+```
+
+## 4) 邀请人进群(joinTopic):
 
 #### 如下为$userAccount1邀请$userAccount4,$userAccount5加入群
 	
@@ -212,22 +249,22 @@ curl "https://mimc.chat.xiaomi.net/api/topic/$appId/$topicId/accounts" -XPOST -d
 		"topicInfo":{
 			"topicId":$topicId,
 			"ownerUuid":$ownerUuid,
-			"name":$topicName,
+			"topicName":$topicName,
 			"bulletin":""
 		},
 		"members":[
 			{"uuid":$ownerUuid,"account":$ownerAccount},
 			{"uuid":$userUuid1,"account":$userAccount1},
 			{"uuid":$userUuid2,"account":$userAccount2},
-			{"uuid":$userUuid1,"account":$userAccount3},
-			{"uuid":$userUuid2,"account":$userAccount4},
-			{"uuid":$userUuid3,"account":$userAccount5}
+			{"uuid":$userUuid3,"account":$userAccount3},
+			{"uuid":$userUuid4,"account":$userAccount4},
+			{"uuid":$userUuid5,"account":$userAccount5}
 		]
 	}
 }
 ```
 
-## 4) 非群主用户退群(quitTopic):
+## 5) 非群主用户退群(quitTopic):
 
 #### 如下为$userAccount1退群
 
@@ -244,15 +281,15 @@ curl "https://mimc.chat.xiaomi.net/api/topic/$appId/$topicId/account" -XDELETE -
 		"topicInfo":{
 			"topicId":$topicId,
 			"ownerUuid":$ownerUuid,
-			"name":$topicName,
+			"topicName":$topicName,
 			"bulletin":""
 		},
 		"members":[
 			{"uuid":$ownerUuid,"account":$ownerAccount},
 			{"uuid":$userUuid2,"account":$userAccount2},
-			{"uuid":$userUuid1,"account":$userAccount3},
-			{"uuid":$userUuid2,"account":$userAccount4},
-			{"uuid":$userUuid3,"account":$userAccount5}
+			{"uuid":$userUuid3,"account":$userAccount3},
+			{"uuid":$userUuid4,"account":$userAccount4},
+			{"uuid":$userUuid5,"account":$userAccount5}
 		]
 	}
 }
@@ -263,7 +300,7 @@ curl "https://mimc.chat.xiaomi.net/api/topic/$appId/$topicId/account" -XDELETE -
 {"code":500,"message":"quit topic fail","data":null}
 ```
  
-## 5) 群主踢用户退群(kickTopic):
+## 6) 群主踢用户退群(kickTopic):
 
 #### 如下为$ownerAccount踢$userAccount4,$userAccount5退出群
 
@@ -280,7 +317,7 @@ curl "https://mimc.chat.xiaomi.net/api/topic/$appId/$topicId/accounts?accounts=$
 		"topicInfo":{
 			"topicId":$topicId,
 			"ownerUuid":$ownerUuid,
-			"name":$topicName,
+			"topicName":$topicName,
 			"bulletin":""
 		},
 		"members":[
@@ -292,13 +329,13 @@ curl "https://mimc.chat.xiaomi.net/api/topic/$appId/$topicId/accounts?accounts=$
 }
 ```
 	
-## 6) 群主更新群信息(updateTopic):
+## 7) 群主更新群信息(updateTopic):
 
 #### 如下为$ownerAccount更新群信息：群主为$userAccount2，群名称为$newTopicName，群公告为$newBulletin
 	
 + HTTPS请求
 ```
-curl "https://mimc.chat.xiaomi.net/api/topic/$appId/$topicId" -XPUT -d '{"topicId":$topicId, "ownerUuid":$userUuid2,"name":$newTopicName,"bulletin":$newBulletin}' -H "Content-Type: application/json" -H "token:$ownerToken"
+curl "https://mimc.chat.xiaomi.net/api/topic/$appId/$topicId" -XPUT -d '{"topicId":$topicId, "ownerUuid":$userUuid2,"topicName":$newTopicName,"bulletin":$newBulletin}' -H "Content-Type: application/json" -H "token:$ownerToken"
 ```
 	
 + JSON结果
@@ -309,7 +346,7 @@ curl "https://mimc.chat.xiaomi.net/api/topic/$appId/$topicId" -XPUT -d '{"topicI
 		"topicInfo":{
 			"topicId":$topicId,
 			"ownerUuid":$userUuid2,
-			"name":$newTopicName,
+			"topicName":$newTopicName,
 			"bulletin":$newBulletin
 		},
 		"members":[
@@ -321,7 +358,7 @@ curl "https://mimc.chat.xiaomi.net/api/topic/$appId/$topicId" -XPUT -d '{"topicI
 }
 ```
 
-## 7) 群主销毁群(dismissTopic):
+## 8) 群主销毁群(dismissTopic):
 
 #### 如下为群主销毁群
 	
@@ -334,4 +371,3 @@ curl "https://mimc.chat.xiaomi.net/api/topic/$appId/$topicId" -XDELETE -H "Conte
 ```
 {"code":200,"message":"success！","data":null}
 ```
-
