@@ -9,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xiaomi.channel.commonutils.logger.MyLog;
 import com.xiaomi.mimcdemo.common.ChatAdapter;
+import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
 import com.xiaomi.push.mimc.MIMCMessage;
 import com.xiaomi.push.mimc.MimcConstant;
@@ -20,7 +22,7 @@ import com.xiaomi.push.mimc.MimcException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends Activity implements UserManager.OnSendMsgListener{
+public class MainActivity extends Activity implements UserManager.OnSendMsgListener {
     private ChatAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private List<MIMCMessage> mdatas = new ArrayList<>();
@@ -59,10 +61,8 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
                     }
                 });
 
-
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_chat);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         mAdapter = new ChatAdapter(this, mdatas);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
@@ -84,11 +84,11 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     @Override
     protected void onResume() {
         super.onResume();
-        if (!TextUtils.isEmpty(UserManager.getInstance().getAccount())){
+        if (!TextUtils.isEmpty(UserManager.getInstance().getAccount())) {
             try {
                 UserManager.getInstance().getUser(UserManager.getInstance().getAccount()).pull();
             } catch (MimcException e) {
-                MyLog.w("pull exception :"+e.getMessage());
+                MyLog.w("pull exception :" + e.getMessage());
             }
         }
     }
@@ -115,6 +115,17 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
             @Override
             public void run() {
                 onChannelStatusChanged(status);
+            }
+        });
+    }
+
+    @Override
+    public void onServerAck(final String packetId) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(SystemUtils.getContext(), "服务端收到packetId："
+                        + packetId, Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -21,5 +21,7 @@ class MessageHandler implements MimcMessageHandler {
     public void handleGroupMessage(List<MIMCGroupMessage> packets) {}
 
     @Override
-    public void handleServerAck(String packetId) {}
+    public void handleServerAck(String packetId) {
+        UserManager.getInstance().serverAck(packetId);
+    }
 }

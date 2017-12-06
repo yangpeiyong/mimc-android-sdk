@@ -48,6 +48,7 @@ public class UserManager {
     public interface OnSendMsgListener {
         void onSent(MIMCMessage message);
         void onStatusChanged(int status);
+        void onServerAck(String packetId);
     }
 
     public static UserManager getInstance() {
@@ -64,6 +65,10 @@ public class UserManager {
 
     public void addMsg(MIMCMessage mimcMessage) {
         onSendMsgListener.onSent(mimcMessage);
+    }
+
+    public void serverAck(String packetId){
+        onSendMsgListener.onServerAck(packetId);
     }
 
     public User getUser(String account) {
