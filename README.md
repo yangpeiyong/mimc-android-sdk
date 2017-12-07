@@ -124,14 +124,14 @@ $topicId				表示群ID
 
 + HTTP 请求
 ```
-curl http://mimc.chat.xiaomi.net/push/p2p/ -XPOST -d '{"appId":$appId, "appKey":$appKey，"appSecurity":$appSecurity, "fromAccount":$fromAccount, "fromResource":$fromResource, "toAccount":$toAccount, "msg":$msg}' -H "Content-Type: application/json"
+curl https://mimc.chat.xiaomi.net/push/p2p/ -XPOST -d '{"appId":$appId, "appKey":$appKey，"appSecurity":$appSecurity, "fromAccount":$fromAccount, "fromResource":$fromResource, "toAccount":$toAccount, "msg":$msg}' -H "Content-Type: application/json"
 ```
 
 + JSON结果
 ```
 {
 	"code":200,
-	"data":{"packetId":"hjdibNDDzS-2"},
+	"data":{"packetId":$packetId},
 	"message":"success"
 }
 ```
@@ -140,14 +140,14 @@ curl http://mimc.chat.xiaomi.net/push/p2p/ -XPOST -d '{"appId":$appId, "appKey":
 
 + HTTP 请求
 ```
-curl http://mimc.chat.xiaomi.net/push/p2t/ -XPOST -d '{"appId":$appId, "appKey":$appKey，"appSecurity":$appSecurity, "fromAccount":$fromAccount, "fromResource":$fromResource, "msg":$msg, "topicId":$topicId}' -H "Content-Type: application/json"
+curl https://mimc.chat.xiaomi.net/push/p2t/ -XPOST -d '{"appId":$appId, "appKey":$appKey，"appSecurity":$appSecurity, "fromAccount":$fromAccount, "fromResource":$fromResource, "msg":$msg, "topicId":$topicId}' -H "Content-Type: application/json"
 ```
 
 + JSON结果
 ```
 {
 	"code":200,
-	"data":{"packetId":"hjdibNDDzS-2"},
+	"data":{"packetId":$packetId},
 	"message":"success"
 }
 ```
