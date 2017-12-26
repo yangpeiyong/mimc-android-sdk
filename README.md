@@ -109,7 +109,7 @@
 
 # PushService
 
-## 下面的例子中所使用到的常量解释：(变量名称/类型/含义)
+## 下面的例子中所使用到的常量解释：(变量名称/含义)
 
 ```
 $appId						小米开放平台申请的AppId
@@ -158,7 +158,7 @@ curl https://mimc.chat.xiaomi.net/api/push/p2t/ -XPOST -d '{"appId":$appId, "app
 Topic API：
 ===
 
-## 下面的例子中所使用到的常量解释：(变量名称/类型/含义)
+## 下面的例子中所使用到的常量解释：(变量名称/含义)
 
 ```
 $appId							表示appId					
