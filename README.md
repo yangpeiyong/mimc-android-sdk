@@ -123,7 +123,6 @@ $msgType                    	          	表示发送消息的类型
 						msgType="":       msg是原始数据，一般传输String数据时使用
 $msg                    	          	表示发送的消息,参阅$msgType注释使用
 $topicId			 		表示群ID
-$msgType                    	          	表示发送消息的类型
 $packetId               	          	表示发送消息包ID
 ```
 
