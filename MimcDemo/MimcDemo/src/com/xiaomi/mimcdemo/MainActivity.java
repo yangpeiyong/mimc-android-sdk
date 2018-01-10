@@ -211,16 +211,16 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
 
     @Override
     public void onHandleMessage(final MIMCMessage message) {
-        MIMCGroupMessage groupMessage = new MIMCGroupMessage();
-        groupMessage.setGroupId(-1);
-        groupMessage.setPayload(message.getPayload());
-        groupMessage.setFromAccount(message.getFromAccount());
-        groupMessage.setFromResource(message.getFromResource());
-        mdatas.add(groupMessage);
-        mAdapter.notifyDataSetChanged();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                MIMCGroupMessage groupMessage = new MIMCGroupMessage();
+                groupMessage.setGroupId(-1);
+                groupMessage.setPayload(message.getPayload());
+                groupMessage.setFromAccount(message.getFromAccount());
+                groupMessage.setFromResource(message.getFromResource());
+                mdatas.add(groupMessage);
+                mAdapter.notifyDataSetChanged();
                 mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
             }
         });
@@ -228,11 +228,11 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
 
     @Override
     public void onHandleGroupMessage(final MIMCGroupMessage message) {
-        mdatas.add(message);
-        mAdapter.notifyDataSetChanged();
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                mdatas.add(message);
+                mAdapter.notifyDataSetChanged();
                 mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
             }
         });
