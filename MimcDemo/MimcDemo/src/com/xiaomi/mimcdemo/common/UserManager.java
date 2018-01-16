@@ -1,13 +1,15 @@
 package com.xiaomi.mimcdemo.common;
 
-import com.xiaomi.channel.commonutils.logger.MyLog;
 import com.xiaomi.push.mimc.MIMCGroupMessage;
 import com.xiaomi.push.mimc.MIMCMessage;
 import com.xiaomi.push.mimc.MIMCTokenFetcher;
+import com.xiaomi.push.mimc.MimcLogger;
 import com.xiaomi.push.mimc.MimcMessageHandler;
 import com.xiaomi.push.mimc.MimcOnlineStatusListener;
 import com.xiaomi.push.mimc.User;
+
 import org.json.JSONObject;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -33,12 +35,9 @@ public class UserManager {
     private String appKey = "5111766983588";
     private String appSecret = "b0L3IOz/9Ob809v8H2FbVg==";
     private String appAccount;
-
     private String url;
     private User mUser;
     private int mStatus;
-
-
     private final static UserManager instance = new UserManager();
 
     private UserManager() {
@@ -89,24 +88,27 @@ public class UserManager {
         onSendMsgListener.onServerAck(packetId);
     }
 
-    public User getUser(String account) {
-        if (account == null) return null;
-        if (!account.equals(appAccount)){
-            mUser = newUser(account);
-        }
-        if (mUser == null) {
-            mUser = newUser(account);
-        }
-        appAccount = account;
+    public User getUser() {
         return mUser;
     }
 
-    public User newUser(String appAccount){
-        User user = new User(appId, appAccount);
-        user.registerTokenFetcher(new TokenFetcher());
-        user.registerMessageHandler(new MessageHandler());
-        user.registerOnlineStatusListener(new OnlineStatusListener());
-        return user;
+    public User newUser(String account){
+        if (account == null) return null;
+        if (mUser != null) {
+            if (!account.equals(appAccount)){
+                mUser.logout();
+                mUser = null;
+            }
+        }
+        if (mUser == null) {
+            mUser = new User(appId, account);
+            mUser.registerTokenFetcher(new TokenFetcher());
+            mUser.registerMessageHandler(new MessageHandler());
+            mUser.registerOnlineStatusListener(new OnlineStatusListener());
+            appAccount = account;
+        }
+
+        return mUser;
     }
 
     class OnlineStatusListener implements MimcOnlineStatusListener {
@@ -145,7 +147,6 @@ public class UserManager {
         }
     }
 
-
     class TokenFetcher implements MIMCTokenFetcher {
 
         @Override
@@ -177,13 +178,12 @@ public class UserManager {
                 Response response = call.execute();
                 JSONObject object = new JSONObject(response.body().string());
                 if (!object.getString("message").equals("success")) {
-                    MyLog.w("data failure");
+                    MimcLogger.w("data failure");
                 }
                 data = object.getJSONObject("data");
             } catch (Exception e) {
-                MyLog.w("http request exception: " + e.getMessage());
+                e.printStackTrace();
             }
-            MyLog.w("token:"+data);
             return data.toString();
         }
     }
@@ -443,7 +443,6 @@ public class UserManager {
         }
     }
 }
-
 
 
 

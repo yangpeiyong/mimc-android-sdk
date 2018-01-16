@@ -9,12 +9,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.xiaomi.channel.commonutils.logger.MyLog;
 import com.xiaomi.mimcdemo.R;
 import com.xiaomi.mimcdemo.common.NetWorkUtils;
 import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
-import com.xiaomi.push.mimc.MIMCGroupMessage;
 import com.xiaomi.push.mimc.MIMCMessage;
 import com.xiaomi.push.mimc.MimcConstant;
 import com.xiaomi.push.mimc.MimcException;
@@ -55,9 +53,10 @@ public class SendMsgDialog extends Dialog {
                     return;
                 } else if (!TextUtils.isEmpty(mTo)){
                     UserManager userManager = UserManager.getInstance();
-                    User user = userManager.getUser(userManager.getAccount());
+                    User user = userManager.getUser();
                     try {
-                        user.sendMessage(mTo, mContent);
+                        if (user != null)
+                            user.sendMessage(mTo, mContent);
                     } catch (MimcException e) {
                         e.printStackTrace();
                     }

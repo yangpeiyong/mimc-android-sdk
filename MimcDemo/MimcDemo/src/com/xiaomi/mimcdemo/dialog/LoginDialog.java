@@ -9,12 +9,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.xiaomi.channel.commonutils.logger.MyLog;
 import com.xiaomi.mimcdemo.R;
 import com.xiaomi.mimcdemo.common.NetWorkUtils;
 import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
 import com.xiaomi.push.mimc.MimcException;
+import com.xiaomi.push.mimc.User;
 
 public class LoginDialog extends Dialog {
 
@@ -38,15 +38,16 @@ public class LoginDialog extends Dialog {
 
             @Override
             public void onClick(View v) {
-                String mAccount = accountEditText.getText().toString();
-                sp.edit().putString("account", mAccount).commit();
+                String account = accountEditText.getText().toString();
+                sp.edit().putString("account", account).commit();
 
                 if (!NetWorkUtils.isNetwork(getContext())) {
                     Toast.makeText(getContext(), getContext().getString(R.string.network_unavailable), Toast.LENGTH_SHORT).show();
                     return;
-                } else if (!TextUtils.isEmpty(mAccount)){
+                } else if (!TextUtils.isEmpty(account)){
                     try {
-                        UserManager.getInstance().getUser(mAccount).login();
+                        User user = UserManager.getInstance().newUser(account);
+                        if (user != null) user.login();
                     } catch (MimcException e) {
                        e.printStackTrace();
                     }

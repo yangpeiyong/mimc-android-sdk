@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.xiaomi.channel.commonutils.logger.MyLog;
 import com.xiaomi.mimcdemo.common.ChatAdapter;
 import com.xiaomi.mimcdemo.common.NetWorkUtils;
 import com.xiaomi.mimcdemo.common.ParseJson;
@@ -33,10 +32,6 @@ import com.xiaomi.push.mimc.MIMCMessage;
 import com.xiaomi.push.mimc.MimcConstant;
 import com.xiaomi.push.mimc.MimcException;
 import com.xiaomi.push.mimc.User;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +63,7 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    User user = UserManager.getInstance().getUser(UserManager.getInstance().getAccount());
+                    User user = UserManager.getInstance().getUser();
                     if (user != null) {
                         user.logout();
                     }
@@ -197,9 +192,10 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
         super.onResume();
         if (!TextUtils.isEmpty(UserManager.getInstance().getAccount())) {
             try {
-                UserManager.getInstance().getUser(UserManager.getInstance().getAccount()).pull();
+                User user = UserManager.getInstance().getUser();
+                if (user != null) user.pull();
             } catch (MimcException e) {
-                MyLog.w("pull exception :" + e.getMessage());
+                e.printStackTrace();
             }
         }
     }

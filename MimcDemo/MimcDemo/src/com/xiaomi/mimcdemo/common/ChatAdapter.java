@@ -28,13 +28,14 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-
+        View view;
         if (viewType == TYPE_SEND) {
-            View view = mLayoutInflater.inflate(R.layout.item_chat_send, parent, false);
+            view = mLayoutInflater.inflate(R.layout.item_chat_send, parent, false);
             return new ChatSendViewHolder(view);
+        } else {
+            view = mLayoutInflater.inflate(R.layout.item_chat_receive, parent, false);
+            return new ChatReceiveViewHolder(view);
         }
-        View view = mLayoutInflater.inflate(R.layout.item_chat_receive, parent, false);
-        return new ChatReceiveViewHolder(view);
     }
 
     @Override
