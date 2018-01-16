@@ -23,7 +23,7 @@ APP开发者访问小米开放平台（dev.mi.com）申请appId/appKey/appSec。
 <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 <uses-permission android:name="com.xiaomi.xmsf.permission.LOG_PROVIDER" />
 
-<!-- receive the mimc messages. the permission is expected to be used only by the app itself. -->
+<!-- 这里的包名"com.xiaomi.mimcdemo"必须替换成App自己的包名 --> 
 <permission
     android:name="com.xiaomi.mimcdemo.permission.MIMC_RECEIVE"
     android:protectionLevel="signature" />
