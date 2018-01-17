@@ -1,7 +1,7 @@
-[跳转到操作指南](https://github.com/Xiaomi-mimc/operation-manual)
+## MIMC官方详细文档点击如下链接：
+[详细文档](https://github.com/Xiaomi-mimc/operation-manual)
 
-快速开始
-===
+# 快速开始
 
 ## 1) 预备步骤
 
