@@ -1,5 +1,5 @@
-## MIMC官方详细文档点击如下链接：
-[详细文档](https://github.com/Xiaomi-mimc/operation-manual)
+## MIMC官方详细文档点击如下链接：[详细文档](https://github.com/Xiaomi-mimc/operation-manual)
+
 
 # 快速开始
 
