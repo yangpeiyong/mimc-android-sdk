@@ -1,3 +1,5 @@
+[跳转到操作指南](https://github.com/Xiaomi-mimc/operation-manual)
+
 快速开始
 ===
 
@@ -493,3 +495,5 @@ curl "https://mimc.chat.xiaomi.net/api/topic/$appId/$topicId" -XDELETE -H "Conte
 ```
 {"code":200,"message":"success！","data":null}
 ```
+
+[回到顶部](#readme)
