@@ -64,7 +64,7 @@ APP开发者访问小米开放平台（dev.mi.com）申请appId/appKey/appSec。
 </receiver>
 ```
 #### 注意：
-这里将MimcCoreService和MimcJobService定义在了mimc进程中，您也可以配置其运行在任意进程。如果没有配置android:process这个属性，那么它们将运行在应用的主进程中。
+我们将MimcCoreService和MimcJobService定义在了mimc进程中，您也可以配置其运行在任意进程。如果没有配置android:process这个属性，那么它们将运行在应用的主进程中。
 
 ## 3) 获取Token
 
