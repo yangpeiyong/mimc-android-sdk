@@ -6,11 +6,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <!-- uses-permission android:name="android.permission.READ_PHONE_STATE" / -->
+    <!-- uses-permission android:name="android.permission.GET_TASKS" / -->
+    <!-- uses-permission android:name="android.permission.VIBRATE" / -->
+    <!-- uses-permission android:name="android.permission.GET_ACCOUNTS" / -->
+    <!-- uses-permission android:name="android.permission.USE_CREDENTIALS" / -->
     <uses-permission android:name="com.xiaomi.xmsf.permission.LOG_PROVIDER" />
     <!-- receive the mimc messages. the permission is expected to be used only by the app itself. -->
     <permission
@@ -35,11 +35,6 @@
         </activity>
 
         <service
-            android:name="com.xiaomi.push.mimc.MimcService"
-            android:enabled="true"
-            android:exported="false" />
-
-        <service
             android:name="com.xiaomi.push.mimc.MimcCoreService"
             android:enabled="true"
             android:exported="false"
@@ -52,11 +47,10 @@
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:process=":mimc" />
 
-        <receiver android:name="com.xiaomi.push.mimc.receivers.PingReceiver">
-            <intent-filter>
-                <action android:name="com.xiaomi.push.PING_TIMER" />
-            </intent-filter>
-        </receiver>
+        <service
+            android:name="com.xiaomi.push.mimc.MimcService"
+            android:enabled="true"
+            android:exported="false" />
 
         <receiver
             android:name="com.xiaomi.push.mimc.receivers.MimcReceiver"
@@ -68,6 +62,12 @@
                 <action android:name="com.xiaomi.push.channel_closed" />
                 <action android:name="com.xiaomi.push.new_msg" />
                 <action android:name="com.xiaomi.push.kicked" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name="com.xiaomi.push.mimc.receivers.PingReceiver">
+            <intent-filter>
+                <action android:name="com.xiaomi.push.PING_TIMER" />
             </intent-filter>
         </receiver>
 

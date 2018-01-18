@@ -256,8 +256,11 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     }
 
     @Override
-    public void onCreateGroup(final String json) {
-        final String info = ParseJson.parseCreateGroupJson(this, json);
+    public void onCreateGroup(String json, boolean isSuccess) {
+        if (isSuccess) {
+            json = ParseJson.parseCreateGroupJson(this, json);
+        }
+        final String info = json;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -268,8 +271,11 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     }
 
     @Override
-    public void onQueryGroupInfo(final String json) {
-        final String info = ParseJson.parseQueryGroupInfoJson(this, json);
+    public void onQueryGroupInfo(String json, boolean isSuccess) {
+        if (isSuccess) {
+            json = ParseJson.parseQueryGroupInfoJson(this, json);
+        }
+        final String info = json;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -280,8 +286,26 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     }
 
     @Override
-    public void onQueryGroupsOfAccount(final String json) {
-        final String info = ParseJson.parseQueryGroupsOfAccountJson(this, json);
+    public void onQueryGroupsOfAccount(String json, boolean isSuccess) {
+        if (isSuccess) {
+            json = ParseJson.parseQueryGroupsOfAccountJson(this, json);
+        }
+        final String info = json;
+                runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                groupInfoDialog.show();
+                groupInfoDialog.setContent(info);
+            }
+        });
+    }
+
+    @Override
+    public void onJoinGroup(String json, boolean isSuccess) {
+        if (isSuccess) {
+            json = ParseJson.parseJoinGroupJson(this, json);
+        }
+        final String info = json;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -292,8 +316,11 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     }
 
     @Override
-    public void onJoinGroup(final String json) {
-        final String info = ParseJson.parseJoinGroupJson(this, json);
+    public void onQuitGroup(String json, boolean isSuccess) {
+        if (isSuccess) {
+            json = ParseJson.parseQuitGroupJson(this, json);
+        }
+        final String info = json;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -304,8 +331,11 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     }
 
     @Override
-    public void onQuitGroup(final String json) {
-        final String info = ParseJson.parseQuitGroupJson(this, json);
+    public void onKickGroup(String json, boolean isSuccess) {
+        if (isSuccess) {
+            json = ParseJson.parseKickGroupJson(this, json);
+        }
+        final String info = json;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -316,8 +346,11 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     }
 
     @Override
-    public void onKickGroup(final String json) {
-        final String info = ParseJson.parseKickGroupJson(this, json);
+    public void onUpdateGroup(String json, boolean isSuccess) {
+        if (isSuccess) {
+            json = ParseJson.parseUpdateGroupJson(this, json);
+        }
+        final String info = json;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -328,20 +361,11 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     }
 
     @Override
-    public void onUpdateGroup(final String json) {
-        final String info = ParseJson.parseUpdateGroupJson(this, json);
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                groupInfoDialog.show();
-                groupInfoDialog.setContent(info);
-            }
-        });
-    }
-
-    @Override
-    public void onDismissGroup(final String json) {
-        final String info = ParseJson.parseDismissGroupJson(json);
+    public void onDismissGroup(String json, boolean isSuccess) {
+        if (isSuccess) {
+            json = ParseJson.parseDismissGroupJson(json);
+        }
+        final String info = json;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {

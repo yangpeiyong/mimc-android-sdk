@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.xiaomi.mimcdemo.R;
+import com.xiaomi.mimcdemo.common.UserManager;
 import com.xiaomi.push.mimc.MIMCGroupMessage;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         String content = new String(msg.getPayload());
         String fromAccount = msg.getFromAccount();
         if (msg.getGroupId() >= 0) {
-            content = "[群]" + content;
+            content = mContext.getString(R.string.group_info) + content;
         }
         String mimcAccount = UserManager.getInstance().getAccount();
         if (holder instanceof ChatSendViewHolder) {

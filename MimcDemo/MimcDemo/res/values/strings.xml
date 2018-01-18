@@ -40,4 +40,5 @@
     <string name="receiver">接收人: </string>
     <string name="contents">消息体: </string>
     <string name="receive_id_of_group">接收群ID: </string>
+    <string name="group_info">[群]</string>
 </resources>

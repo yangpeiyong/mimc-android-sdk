@@ -53,15 +53,15 @@ public class UserManager {
         void onHandleMessage(MIMCMessage message);
         void onHandleGroupMessage(MIMCGroupMessage message);
         void onStatusChanged(int status);
-        void onServerAck(final String packetId);
-        void onCreateGroup(final String json);
-        void onQueryGroupInfo(final String json);
-        void onQueryGroupsOfAccount(final String json);
-        void onJoinGroup(final String json);
-        void onQuitGroup(final String json);
-        void onKickGroup(final String json);
-        void onUpdateGroup(final String json);
-        void onDismissGroup(final String json);
+        void onServerAck(String packetId);
+        void onCreateGroup(String json, boolean isSuccess);
+        void onQueryGroupInfo(String json, boolean isSuccess);
+        void onQueryGroupsOfAccount(String json, boolean isSuccess);
+        void onJoinGroup(String json, boolean isSuccess);
+        void onQuitGroup(String json, boolean isSuccess);
+        void onKickGroup(String json, boolean isSuccess);
+        void onUpdateGroup(String json, boolean isSuccess);
+        void onDismissGroup(String json, boolean isSuccess);
     }
 
     public static UserManager getInstance() {
@@ -206,13 +206,13 @@ public class UserManager {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
+                    onSendMsgListener.onCreateGroup(e.getMessage(), false);
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.isSuccessful()) {
-                        onSendMsgListener.onCreateGroup(response.body().string());
+                        onSendMsgListener.onCreateGroup(response.body().string(), true);
                     }
                 }
             });
@@ -237,13 +237,13 @@ public class UserManager {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
+                    onSendMsgListener.onCreateGroup(e.getMessage(), false);
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.isSuccessful()) {
-                        onSendMsgListener.onQueryGroupInfo(response.body().string());
+                        onSendMsgListener.onQueryGroupInfo(response.body().string(), true);
                     }
                 }
             });
@@ -268,13 +268,13 @@ public class UserManager {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
+                    onSendMsgListener.onCreateGroup(e.getMessage(), false);
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.isSuccessful()) {
-                        onSendMsgListener.onQueryGroupsOfAccount(response.body().string());
+                        onSendMsgListener.onQueryGroupsOfAccount(response.body().string(), true);
                     }
                 }
             });
@@ -301,13 +301,13 @@ public class UserManager {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
+                    onSendMsgListener.onCreateGroup(e.getMessage(), false);
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.isSuccessful()) {
-                        onSendMsgListener.onJoinGroup(response.body().string());
+                        onSendMsgListener.onJoinGroup(response.body().string(), true);
                     }
                 }
             });
@@ -332,13 +332,13 @@ public class UserManager {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
+                    onSendMsgListener.onCreateGroup(e.getMessage(), false);
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.isSuccessful()) {
-                        onSendMsgListener.onQuitGroup(response.body().string());
+                        onSendMsgListener.onQuitGroup(response.body().string(), true);
                     }
                 }
             });
@@ -363,13 +363,13 @@ public class UserManager {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
+                    onSendMsgListener.onCreateGroup(e.getMessage(), false);
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.isSuccessful()) {
-                        onSendMsgListener.onKickGroup(response.body().string());
+                        onSendMsgListener.onKickGroup(response.body().string(), true);
                     }
                 }
             });
@@ -397,13 +397,13 @@ public class UserManager {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
+                    onSendMsgListener.onCreateGroup(e.getMessage(), false);
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.isSuccessful()) {
-                        onSendMsgListener.onUpdateGroup(response.body().string());
+                        onSendMsgListener.onUpdateGroup(response.body().string(), true);
                     }
                 }
             });
@@ -428,13 +428,13 @@ public class UserManager {
             call.enqueue(new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
+                    onSendMsgListener.onCreateGroup(e.getMessage(), false);
                 }
 
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.isSuccessful()) {
-                        onSendMsgListener.onDismissGroup(response.body().string());
+                        onSendMsgListener.onDismissGroup(response.body().string(), true);
                     }
                 }
             });
