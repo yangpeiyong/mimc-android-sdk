@@ -18,11 +18,6 @@ APP开发者访问小米开放平台（dev.mi.com）申请appId/appKey/appSec。
 <uses-permission android:name="android.permission.INTERNET" />
 <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-<uses-permission android:name="android.permission.GET_TASKS" />
-<uses-permission android:name="android.permission.VIBRATE" />
-<uses-permission android:name="android.permission.GET_ACCOUNTS" />
-<uses-permission android:name="android.permission.USE_CREDENTIALS" />
 <uses-permission android:name="com.xiaomi.xmsf.permission.LOG_PROVIDER" />
 
 <!-- 这里的包名"com.xiaomi.mimcdemo"必须替换成App自己的包名 --> 
@@ -68,6 +63,8 @@ APP开发者访问小米开放平台（dev.mi.com）申请appId/appKey/appSec。
     </intent-filter>
 </receiver>
 ```
+#### 注意：
+这里将MimcCoreService和MimcJobService定义在了mimc进程中，您也可以配置其运行在任意进程。如果没有配置android:process这个属性，那么它们将运行在应用的主进程中。
 
 ## 3) 获取Token
 
