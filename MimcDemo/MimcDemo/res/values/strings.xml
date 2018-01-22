@@ -11,6 +11,7 @@
     <string name="test">测试</string>
     <string name="setting">设置</string>
     <string name="okay">确定</string>
+    <string name="query">查询</string>
     <string name="create_group">创建群</string>
     <string name="query_group_info">查询群</string>
     <string name="query_all_group_info">查所属群</string>
@@ -22,6 +23,8 @@
     <string name="send_group_msg">群发</string>
     <string name="button_query">查询</string>
     <string name="tips">提示</string>
+    <string name="p2p_history">单聊记录</string>
+    <string name="p2t_history">群聊记录</string>
     <string name="network_unavailable">网络不可用</string>
     <string name="login_failed">登录异常，请重新登录</string>
     <string name="input_name_of_group">请指定群名</string>
@@ -29,16 +32,29 @@
     <string name="input_id_of_group">请指定群ID</string>
     <string name="input_uuid_owner_of_group">请指定群主UUID</string>
     <string name="input_bulletin_of_group">请指定群公告</string>
+    <string name="input_account_of_owner">请指定自己账户</string>
+    <string name="input_account_of_other">请指定对方账户</string>
+    <string name="input_begin_date_time">请指定开始日期时间</string>
+    <string name="input_end_date_time">请指定结束日期时间</string>
     <string name="group_id">群ID: </string>
     <string name="group_name">群名: </string>
     <string name="members">成员: </string>
     <string name="uuid">UUID: </string>
     <string name="uuid_owner_of_group">群主UUID: </string>
+    <string name="name_owner_of_group">群主: </string>
     <string name="group_bulletin">群公告: </string>
     <string name="account">账户: </string>
     <string name="hint_of_members">至少指定一个成员，多个之间用逗号（,）隔开</string>
     <string name="receiver">接收人: </string>
     <string name="contents">消息体: </string>
+    <string name="from_account">对方账户: </string>
+    <string name="to_account">自己账户: </string>
+    <string name="pull_rows">消息数: </string>
     <string name="receive_id_of_group">接收群ID: </string>
     <string name="group_info">[群]</string>
+    <string name="set_begin_date">开始日期</string>
+    <string name="set_end_date">结束日期</string>
+    <string name="set_time">时间</string>
+    <string name="p2p_sequence">序号: </string>
+    <string name="p2p_ts">时间戳: </string>
 </resources>

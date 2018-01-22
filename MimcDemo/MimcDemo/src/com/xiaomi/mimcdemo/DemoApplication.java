@@ -13,6 +13,7 @@ import com.xiaomi.push.mimc.MimcException;
 import com.xiaomi.push.mimc.MimcLogger;
 import com.xiaomi.push.mimc.User;
 
+
 public class DemoApplication extends Application {
     public static final String TAG = "com.xiaomi.MimcDemo";
     private int mCount = 0;

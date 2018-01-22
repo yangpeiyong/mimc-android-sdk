@@ -22,6 +22,8 @@ import com.xiaomi.mimcdemo.dialog.GroupInfoDialog;
 import com.xiaomi.mimcdemo.dialog.JoinGroupDialog;
 import com.xiaomi.mimcdemo.dialog.KickGroupDialog;
 import com.xiaomi.mimcdemo.dialog.LoginDialog;
+import com.xiaomi.mimcdemo.dialog.PullP2PHistoryMsgDialog;
+import com.xiaomi.mimcdemo.dialog.PullP2THistoryMsgDialog;
 import com.xiaomi.mimcdemo.dialog.QueryGroupInfoDialog;
 import com.xiaomi.mimcdemo.dialog.QuitGroupDialog;
 import com.xiaomi.mimcdemo.dialog.SendGroupMsgDialog;
@@ -132,40 +134,59 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
             });
 
         findViewById(R.id.btn_kick_group).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Dialog dlgKickGroup = new KickGroupDialog(MainActivity.this);
-                        dlgKickGroup.show();
-                    }
-                });
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Dialog dlgKickGroup = new KickGroupDialog(MainActivity.this);
+                    dlgKickGroup.show();
+                }
+            });
 
         findViewById(R.id.btn_update_group).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Dialog dlgUpdateGroup = new UpdateGroupDialog(MainActivity.this);
-                        dlgUpdateGroup.show();
-                    }
-                });
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Dialog dlgUpdateGroup = new UpdateGroupDialog(MainActivity.this);
+                    dlgUpdateGroup.show();
+                }
+            });
 
         findViewById(R.id.btn_dismiss_group).setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Dialog dlgDismissGroup = new DismissGroupDialog(MainActivity.this);
+                    dlgDismissGroup.show();
+                }
+            });
+
+        findViewById(R.id.btn_send_group_msg).setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Dialog dlgSendGroupMsg = new SendGroupMsgDialog(MainActivity.this);
+                    dlgSendGroupMsg.show();
+                }
+            });
+
+        findViewById(R.id.btn_p2p_history).setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Dialog dlgP2PHistory = new PullP2PHistoryMsgDialog(MainActivity.this);
+                    dlgP2PHistory.show();
+                }
+            });
+
+        findViewById(R.id.btn_p2t_history).setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Dialog dlgDismissGroup = new DismissGroupDialog(MainActivity.this);
-                        dlgDismissGroup.show();
+                        Dialog dlgP2THistory = new PullP2THistoryMsgDialog(MainActivity.this);
+                        dlgP2THistory.show();
                     }
                 });
 
-        findViewById(R.id.btn_send_group_msg).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Dialog dlgSendGroupMsg = new SendGroupMsgDialog(MainActivity.this);
-                        dlgSendGroupMsg.show();
-                    }
-                });
 
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_chat);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -364,6 +385,36 @@ public class MainActivity extends Activity implements UserManager.OnSendMsgListe
     public void onDismissGroup(String json, boolean isSuccess) {
         if (isSuccess) {
             json = ParseJson.parseDismissGroupJson(json);
+        }
+        final String info = json;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                groupInfoDialog.show();
+                groupInfoDialog.setContent(info);
+            }
+        });
+    }
+
+    @Override
+    public void onPullP2PHistory(String json, boolean isSuccess) {
+        if (isSuccess) {
+            json = ParseJson.parseP2PHistoryJson(this, json);
+        }
+        final String info = json;
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                groupInfoDialog.show();
+                groupInfoDialog.setContent(info);
+            }
+        });
+    }
+
+    @Override
+    public void onPullP2THistory(String json, boolean isSuccess) {
+        if (isSuccess) {
+            json = ParseJson.parseP2THistoryJson(this, json);
         }
         final String info = json;
         runOnUiThread(new Runnable() {

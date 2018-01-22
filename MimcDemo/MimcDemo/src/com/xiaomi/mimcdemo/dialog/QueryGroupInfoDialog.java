@@ -6,11 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.xiaomi.mimcdemo.R;
 import com.xiaomi.mimcdemo.common.NetWorkUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
 import com.xiaomi.push.mimc.MimcConstant;
+
 
 public class QueryGroupInfoDialog extends Dialog {
 

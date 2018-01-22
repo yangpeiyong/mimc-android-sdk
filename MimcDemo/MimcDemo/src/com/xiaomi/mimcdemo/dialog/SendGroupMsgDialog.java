@@ -32,15 +32,15 @@ public class SendGroupMsgDialog extends Dialog {
         setTitle(R.string.send_group_msg);
         final EditText etGroupId = (EditText)findViewById(R.id.et_group_id);
         final SharedPreferences sp = SystemUtils.getContext()
-                .getSharedPreferences("to_receive_id_of_group", Context.MODE_PRIVATE);
-        etGroupId.setText(sp.getString("to_receive_id_of_group", null));
+                .getSharedPreferences("user", Context.MODE_PRIVATE);
+        etGroupId.setText(sp.getString("toGroupId", null));
 
         findViewById(R.id.btn_group_send).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String mTo = etGroupId.getText().toString();
 
-                sp.edit().putString("to_receive_id_of_group", mTo).commit();
+                sp.edit().putString("toGroupId", mTo).commit();
 
                 byte mContent[] = ((EditText)findViewById(R.id.et_group_content))
                         .getText().toString().getBytes();

@@ -18,6 +18,7 @@ import com.xiaomi.push.mimc.MimcConstant;
 import com.xiaomi.push.mimc.MimcException;
 import com.xiaomi.push.mimc.User;
 
+
 public class SendMsgDialog extends Dialog {
 
     public SendMsgDialog(Context context) {
@@ -32,8 +33,8 @@ public class SendMsgDialog extends Dialog {
         setTitle(R.string.button_send);
         final EditText toEditText = (EditText)findViewById(R.id.chat_to);
         final SharedPreferences sp = SystemUtils.getContext()
-                .getSharedPreferences("to_account", Context.MODE_PRIVATE);
-        toEditText.setText(sp.getString("to", null));
+                .getSharedPreferences("user", Context.MODE_PRIVATE);
+        toEditText.setText(sp.getString("toAccount", null));
 
         findViewById(R.id.chat_send).setOnClickListener(new View.OnClickListener() {
 
@@ -43,7 +44,7 @@ public class SendMsgDialog extends Dialog {
                 byte mContent[] = ((EditText) findViewById(R.id.chat_content))
                         .getText().toString().getBytes();
 
-                sp.edit().putString("to", mTo).commit();
+                sp.edit().putString("toAccount", mTo).commit();
 
                 if (!NetWorkUtils.isNetwork(getContext())) {
                     Toast.makeText(getContext(), getContext().getString(R.string.network_unavailable), Toast.LENGTH_SHORT).show();

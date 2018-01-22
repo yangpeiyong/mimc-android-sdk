@@ -12,6 +12,7 @@ import com.xiaomi.mimcdemo.common.NetWorkUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
 import com.xiaomi.push.mimc.MimcConstant;
 
+
 public class CreateGroupDialog extends Dialog {
 
     public CreateGroupDialog(Context context) {

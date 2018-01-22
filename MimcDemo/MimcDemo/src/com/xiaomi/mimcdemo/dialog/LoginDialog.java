@@ -16,6 +16,7 @@ import com.xiaomi.mimcdemo.common.UserManager;
 import com.xiaomi.push.mimc.MimcException;
 import com.xiaomi.push.mimc.User;
 
+
 public class LoginDialog extends Dialog {
 
     public LoginDialog(Context context) {
@@ -33,13 +34,13 @@ public class LoginDialog extends Dialog {
         final SharedPreferences sp = SystemUtils.getContext()
                 .getSharedPreferences("user", Context.MODE_PRIVATE);
 
-        accountEditText.setText(sp.getString("account", null));
+        accountEditText.setText(sp.getString("loginAccount", null));
         findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 String account = accountEditText.getText().toString();
-                sp.edit().putString("account", account).commit();
+                sp.edit().putString("loginAccount", account).commit();
 
                 if (!NetWorkUtils.isNetwork(getContext())) {
                     Toast.makeText(getContext(), getContext().getString(R.string.network_unavailable), Toast.LENGTH_SHORT).show();

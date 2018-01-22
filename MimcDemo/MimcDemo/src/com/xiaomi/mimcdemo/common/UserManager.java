@@ -7,12 +7,9 @@ import com.xiaomi.push.mimc.MimcLogger;
 import com.xiaomi.push.mimc.MimcMessageHandler;
 import com.xiaomi.push.mimc.MimcOnlineStatusListener;
 import com.xiaomi.push.mimc.User;
-
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.List;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -39,6 +36,7 @@ public class UserManager {
     private User mUser;
     private int mStatus;
     private final static UserManager instance = new UserManager();
+    private String token = "bJRLeg7AgtSh0T13YjL/IFDdK0JTjCJG4KdSfB9L7c0+fxzihaW2nqjG1PONAKI8oYJeHpzgG8crdV6Io0iEsdsXEK0ahSQmSLAMm2zInHcLaybr//o/Fq6eT3ET7RKjVYgi6wNBiMnJ7WfN26gCINUcJoML89/+OdcsrnHlV/g9pEi7rhcRYL2elnC9oUjIpGda6yEk1veedO/WPxD4T32Pa+kn+bw5gnkWFLuJJEm9irZAI+YHWVGRGJB30Ae1UnmcfeBusobSS8Co3jtt1VbHeuSlkvrUo0xlOwgQCASzChUeMDHUJizxUYjNl9NDct4VwyPy0jFYYTKE+yYvLg==";
 
     private UserManager() {
     }
@@ -62,6 +60,8 @@ public class UserManager {
         void onKickGroup(String json, boolean isSuccess);
         void onUpdateGroup(String json, boolean isSuccess);
         void onDismissGroup(String json, boolean isSuccess);
+        void onPullP2PHistory(String json, boolean isSuccess);
+        void onPullP2THistory(String json, boolean isSuccess);
     }
 
     public static UserManager getInstance() {
@@ -181,6 +181,7 @@ public class UserManager {
                     MimcLogger.w("data failure");
                 }
                 data = object.getJSONObject("data");
+                token = data.getString("token");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -196,9 +197,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("appKey", appKey)
-                .addHeader("appSecret", appSecret)
-                .addHeader("appAccount", appAccount)
+                .addHeader("token", token)
                 .post(RequestBody.create(JSON, json))
                 .build();
         try {
@@ -227,9 +226,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("appKey", appKey)
-                .addHeader("appSecret", appSecret)
-                .addHeader("appAccount", appAccount)
+                .addHeader("token", token)
                 .get()
                 .build();
         try {
@@ -258,9 +255,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("appKey", appKey)
-                .addHeader("appSecret", appSecret)
-                .addHeader("appAccount", appAccount)
+                .addHeader("token", token)
                 .get()
                 .build();
         try {
@@ -291,9 +286,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("appKey", appKey)
-                .addHeader("appSecret", appSecret)
-                .addHeader("appAccount", appAccount)
+                .addHeader("token", token)
                 .post(RequestBody.create(JSON, json))
                 .build();
         try {
@@ -322,9 +315,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("appKey", appKey)
-                .addHeader("appSecret", appSecret)
-                .addHeader("appAccount", appAccount)
+                .addHeader("token", token)
                 .delete()
                 .build();
         try {
@@ -353,9 +344,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("appKey", appKey)
-                .addHeader("appSecret", appSecret)
-                .addHeader("appAccount", appAccount)
+                .addHeader("token", token)
                 .delete()
                 .build();
         try {
@@ -387,9 +376,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("appKey", appKey)
-                .addHeader("appSecret", appSecret)
-                .addHeader("appAccount", appAccount)
+                .addHeader("token", token)
                 .put(RequestBody.create(JSON, json))
                 .build();
         try {
@@ -418,9 +405,7 @@ public class UserManager {
         Request request = new Request
                 .Builder()
                 .url(url)
-                .addHeader("appKey", appKey)
-                .addHeader("appSecret", appSecret)
-                .addHeader("appAccount", appAccount)
+                .addHeader("token", token)
                 .delete()
                 .build();
         try {
@@ -435,6 +420,73 @@ public class UserManager {
                 public void onResponse(Call call, Response response) throws IOException {
                     if (response.isSuccessful()) {
                         onSendMsgListener.onDismissGroup(response.body().string(), true);
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void pullP2PHistory(String toAccount, String fromAccount, String utcFromTime, String utcToTime) {
+        url = "https://mimc.chat.xiaomi.net/api/msg/p2p/query/";
+        String json = "{\"appId\":\"" + appId + "\", \"toAccount\":\"" + toAccount + "\", \"fromAccount\":\""
+                + fromAccount + "\", \"utcFromTime\":\"" + utcFromTime + "\", \"utcToTime\":\"" +
+                utcToTime + "\"}";
+        MediaType JSON = MediaType.parse("application/json;charset=UTF-8");
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request
+                .Builder()
+                .url(url)
+                .addHeader("Accept", "application/json;charset=UTF-8")
+                .addHeader("token", token)
+                .post(RequestBody.create(JSON, json))
+                .build();
+        try {
+            Call call = client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    onSendMsgListener.onPullP2PHistory(e.getMessage(), false);
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (response.isSuccessful()) {
+                        onSendMsgListener.onPullP2PHistory(response.body().string(), true);
+                    }
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void pullP2THistory(String account, String topicId, String utcFromTime, String utcToTime) {
+        url = "https://mimc.chat.xiaomi.net/api/msg/p2t/query/";
+        String json = "{\"appId\":\"" + appId + "\", \"account\":\"" + account + "\", \"topicId\":\""
+                + topicId + "\", \"utcFromTime\":\"" + utcFromTime + "\", \"utcToTime\":\"" + utcToTime + "\"}";
+        MediaType JSON = MediaType.parse("application/json;charset=UTF-8");
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request
+                .Builder()
+                .url(url)
+                .addHeader("Accept", "application/json;charset=UTF-8")
+                .addHeader("token", token)
+                .post(RequestBody.create(JSON, json))
+                .build();
+        try {
+            Call call = client.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    onSendMsgListener.onPullP2THistory(e.getMessage(), false);
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    if (response.isSuccessful()) {
+                        onSendMsgListener.onPullP2THistory(response.body().string(), true);
                     }
                 }
             });
