@@ -85,6 +85,7 @@ APP开发者访问小米开放平台（dev.mi.com）申请appId/appKey/appSec。
 	b) 访问TokenService，获取Token并下发给APP；
   
 #### 访问TokenService获取Token方式如下：
+
 ```
 curl “https://mimc.chat.xiaomi.net/api/account/token”
 -XPOST -d '{"appId":$appId,"appKey":$appKey,"appSecret":$appSec,"appAccount":$appAccount}' 
@@ -95,7 +96,7 @@ curl “https://mimc.chat.xiaomi.net/api/account/token”
 
 ``` java 
 MimcClient.initialize(this);
-User user = new User(appId, appAccount);
+User user = new User(appId, username);
 ```
 
 ## 5) 请求到Token并返回
@@ -130,7 +131,7 @@ user.registerMessageHandler(MIMCMessageHandler handler);
 interface MIMCMessageHandler {
 	public void handleMessage(List<MIMCMessage> packets);        
 	public void handleGroupMessage(List<MIMCGroupMessage> packets); 
-	//参数packetId与9)对应
+	//参数packetId与9)、10）对应
 	public void handleServerAck(String packetId);
 }
 ```
@@ -142,15 +143,26 @@ interface MIMCMessageHandler {
 user.login();
 ```
 		
-## 9) 发送消息
+## 9) 发送P2P消息
 
 ``` java 
-//返回值为packetId，表示客户端此次发送的消息的packetId
-//用户每次发送消息后，会收到服务器端返回的packetId，保证发送的消息成功到达服务器端   
-String packetId = user.sendMessage(String appAccount, byte[]); 
+String packetId = user.sendMessage(String toUserName, byte[] payload);
 ```
 
-## 10) 注销
+## 10) 发送P2T消息
+
+``` java
+String packetId = user.sendGroupMessage(long groupID, byte[] payload); 
+```
+
+## 12) 拉取消息
+
+``` java
+// 当切换到前台时，从服务端拉取消息
+user.pull();
+```
+
+## 12) 注销
 
 ``` java 
 user.logout();
