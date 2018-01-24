@@ -27,31 +27,31 @@ APP开发者访问小米开放平台（dev.mi.com）申请appId/appKey/appSec。
 <uses-permission android:name="com.xiaomi.mimcdemo.permission.MIMC_RECEIVE" />
 
 <service
-    android:name="com.xiaomi.push.mimc.MimcService"
+    android:name="com.xiaomi.mimc.MimcService"
     android:enabled="true"
     android:exported="false" />
 
 <service
-    android:name="com.xiaomi.push.mimc.MimcCoreService"
+    android:name="com.xiaomi.mimc.MimcCoreService"
     android:enabled="true"
     android:exported="false"
     android:process=":mimc"/>
 
 <service
-    android:name="com.xiaomi.push.mimc.MimcJobService"
+    android:name="com.xiaomi.mimc.MimcJobService"
     android:enabled="true"
     android:exported="false"
     android:permission="android.permission.BIND_JOB_SERVICE"
     android:process=":mimc" />
 
-<receiver android:name="com.xiaomi.push.mimc.receivers.PingReceiver">
+<receiver android:name="com.xiaomi.mimc.receivers.PingReceiver">
     <intent-filter>
 	<action android:name="com.xiaomi.push.PING_TIMER" />
     </intent-filter>
 </receiver>
 
 <receiver
-    android:name="com.xiaomi.push.mimc.receivers.MimcReceiver"
+    android:name="com.xiaomi.mimc.receivers.MimcReceiver"
     android:exported="true">
     <intent-filter>
 	<action android:name="com.xiaomi.channel.PUSH_STARTED" />
