@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.xiaomi.mimcdemo.R;
 import com.xiaomi.mimcdemo.common.NetWorkUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
-import com.xiaomi.push.mimc.MimcConstant;
+import com.xiaomi.mimc.MimcConstant;
 
 
 public class CreateGroupDialog extends Dialog {

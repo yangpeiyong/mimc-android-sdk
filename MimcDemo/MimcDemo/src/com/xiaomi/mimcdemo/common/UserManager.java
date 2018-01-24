@@ -1,12 +1,12 @@
 package com.xiaomi.mimcdemo.common;
 
-import com.xiaomi.push.mimc.MIMCGroupMessage;
-import com.xiaomi.push.mimc.MIMCMessage;
-import com.xiaomi.push.mimc.MIMCTokenFetcher;
-import com.xiaomi.push.mimc.MimcLogger;
-import com.xiaomi.push.mimc.MimcMessageHandler;
-import com.xiaomi.push.mimc.MimcOnlineStatusListener;
-import com.xiaomi.push.mimc.User;
+import com.xiaomi.mimc.MIMCGroupMessage;
+import com.xiaomi.mimc.MIMCMessage;
+import com.xiaomi.mimc.MIMCTokenFetcher;
+import com.xiaomi.mimc.MimcLogger;
+import com.xiaomi.mimc.MimcMessageHandler;
+import com.xiaomi.mimc.MimcOnlineStatusListener;
+import com.xiaomi.mimc.User;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;

@@ -1,3 +1,5 @@
+# 1.1.0
++ Fix bugs and modify package name.
 # 1.0.14
 + Fix import MiPush_SDK_Client_3_5_2.jar naming conflicts.
 # 1.0.10

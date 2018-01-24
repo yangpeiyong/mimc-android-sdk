@@ -18,7 +18,7 @@ import com.xiaomi.mimcdemo.common.NetWorkUtils;
 import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.TimeUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
-import com.xiaomi.push.mimc.MimcConstant;
+import com.xiaomi.mimc.MimcConstant;
 
 import java.util.Calendar;
 

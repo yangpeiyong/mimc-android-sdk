@@ -29,11 +29,11 @@ import com.xiaomi.mimcdemo.dialog.QuitGroupDialog;
 import com.xiaomi.mimcdemo.dialog.SendGroupMsgDialog;
 import com.xiaomi.mimcdemo.dialog.SendMsgDialog;
 import com.xiaomi.mimcdemo.dialog.UpdateGroupDialog;
-import com.xiaomi.push.mimc.MIMCGroupMessage;
-import com.xiaomi.push.mimc.MIMCMessage;
-import com.xiaomi.push.mimc.MimcConstant;
-import com.xiaomi.push.mimc.MimcException;
-import com.xiaomi.push.mimc.User;
+import com.xiaomi.mimc.MIMCGroupMessage;
+import com.xiaomi.mimc.MIMCMessage;
+import com.xiaomi.mimc.MimcConstant;
+import com.xiaomi.mimc.MimcException;
+import com.xiaomi.mimc.User;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,11 +7,11 @@ import android.util.Log;
 
 import com.xiaomi.mimcdemo.common.SystemUtils;
 import com.xiaomi.mimcdemo.common.UserManager;
-import com.xiaomi.push.mimc.LoggerInterface;
-import com.xiaomi.push.mimc.MimcClient;
-import com.xiaomi.push.mimc.MimcException;
-import com.xiaomi.push.mimc.MimcLogger;
-import com.xiaomi.push.mimc.User;
+import com.xiaomi.mimc.LoggerInterface;
+import com.xiaomi.mimc.MimcClient;
+import com.xiaomi.mimc.MimcException;
+import com.xiaomi.mimc.MimcLogger;
+import com.xiaomi.mimc.User;
 
 
 public class DemoApplication extends Application {
