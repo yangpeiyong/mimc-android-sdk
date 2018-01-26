@@ -21,7 +21,7 @@ import okhttp3.Response;
 public class UserManager {
     /**
      * @important!!! appId/appKey/appSec：
-     * 小米开放平台(https://dev.mi.com/cosole/man/)申请
+     * 小米开放平台(https://dev.mi.com/console/man/)申请
      * 信息敏感，不应存储于APP端，应存储在AppProxyService
      * appAccount:
      * APP帐号系统内唯一ID
