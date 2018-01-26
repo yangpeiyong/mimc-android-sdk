@@ -158,7 +158,7 @@ String packetId = user.sendGroupMessage(long groupID, byte[] payload);
 ## 12) 拉取消息
 
 ``` java
-// 当切换到前台时，从服务端拉取消息
+// 从服务端拉取未下发的消息，建议App从后台切换到前台时拉一下。
 user.pull();
 ```
 
